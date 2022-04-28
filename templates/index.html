@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		
+<!-- basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- site metas -->
+<link rel="icon" href="images/iconAwan.ico">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<title>Eirverywhere</title>
+<script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+
+    <!-- Add a reference to the Azure Maps Services Module JavaScript file. -->
+    <script src="https://atlas.microsoft.com/sdk/javascript/service/2/atlas-service.min.js"></script>
+
+    <script src="js/MAP.js">  
+    </script>
+	 <style>
+        .footer {
+            height: 50px; /*設定footer本身高度*/
+            margin-top: -50px; /*隨footer高度需做調整*/
+            background-color: blue;
+        }
+        #mapstyle {
+            position :relative ;
+            margin : 50px ;
+            width : 1000px ;
+        }
+        #myMap{ /*    
+                    ////////////////////////////////////////////////////////大小  */
+            float: right;
+            position: relative ;
+            width: 600px;
+            
+        }
+        #search {
+            float: left;
+            position: relative;
+           
+            width: 302px;
+            box-shadow: 0px 24px 74px 0px rgba(0, 0, 0, .32);
+            border: 1px solid #ccc;
+            overflow-y: hidden;
+        }
+           
+        #results-panel {
+            width: 300px;
+            margin: 0;
+    
+            padding:0 ;
+            background-color: #fff;
+            overflow-y: auto;
+            max-height: 230px;
+        }
+            #results-panel > li {
+                border-top: 1px dotted #ccc;
+                padding: 10px 20px;
+            }
+                #results-panel > li:hover {
+                    background-color: #f1f2f2;
+                    cursor: pointer;
+                }
+                #results-panel > li > .title {
+                    font-family: segoeui-b;
+                    line-height: 14pt;
+                    width: 100%;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                #results-panel > li > .info {
+                    width: 100%;
+                    line-height: 14pt;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+        
+    </style>
+<script>
+	function myFunction(){
+        var symptom = document.getElementById("data") ;
+    
+        symptom_api = 'http://20.212.37.113:3000/api/symptoms-departments?keyword=' + symptom.value ;
+        // window.alert( symptom_api )
+
+        //[{"頭痛":"家庭醫學科"},{"頭痛":"眼科"},{"頭痛":"神經外科"},{"頭痛":"家醫科"},{"頭痛":"神經內科"},{"頭痛":"一般內科"},{"頭痛":"心臟內科"},{"頭痛":"精神科"}]
+        //[{"腹痛":"消化內科"},{"腹痛":"一般內科"},{"腹痛":"一般外科"},{"腹痛":"家醫科"},{"腹痛":"婦產科"}]
+        fetch(symptom_api,{
+                method: "GET",
+                headers: {
+        'Access-Control-Allow-Origin':'*'
+       }
+            })
+        .then( response => { 
+            return response.json() } )
+        .then( (data) => {
+
+            //window.alert( data.length )
+        
+            // console.log( data[0][ symptom.value ])
+            // console.log(data.length )
+            var tb1 = document.getElementById("myTable");
+            var org = '<tr id="SYM"><th id="th">症狀</th><td id="td">科別</td></tr>' ;
+            tb1.innerHTML = org ;
+            if ( data.length > 0 ) {
+                for ( var i = 1 ; i <= data.length ; i ++  ) {
+                    org = '<tr><th id="th">' + symptom.value + '</th><td id="td" value="td" onclick="GetMap()">' + data[i-1][symptom.value] + '</td></tr>' ;
+                    tb1.innerHTML += org ;
+                } // for
+            } // if 
+            else {
+                tb1.innerHTML = '<tr>查無此資料</tr>' ;
+            } // else
+            
+            
+            })
+        
+        
+
+		// var tb1 = document.getElementById("myTable");
+        // var org = '<tr><th id="th">症狀</th><td id="td">科別</td></tr>' ;
+        // tb1.innerHTML = org ;
+
+        // let size = 20 ;
+
+        // for ( var i = 1 ; i < size ; i ++  ) {
+        //     org = '<tr><th id="th">' + '症狀' + i + '</th><td id="td" value="td" onclick="GetMap()">' + '科別' + i + '</td></tr>' ;
+        //     tb1.innerHTML += org ;
+        // } // for
+        
+	}
+    // function transfer( a ) {
+    //     window.alert(a) ;
+    // }
+
+    function clickFunction(symptom){
+   
+        //window.alert( symptom.value ) ;
+        symptom_api = 'http://20.212.37.113:3000/api/symptoms-departments?keyword=' + symptom ;
+        //window.alert( symptom_api )
+
+
+        fetch(symptom_api,{
+                method: "GET",
+                headers: {
+        'Access-Control-Allow-Origin':'*'
+       }
+            })
+        .then( response => { 
+            return response.json() } )
+        .then( (data) => {
+
+            var tb1 = document.getElementById("myTable");
+            var org = '<tr><th id="th">症狀</th><td id="td">科別</td></tr>' ;
+            tb1.innerHTML = org ;
+            
+            for ( var i = 1 ; i <= data.length ; i ++  ) {
+                org = '<tr><th id="th">' + symptom + '</th><td id="td" value="td" onclick="GetMap(\'' + data[i-1][symptom]  + '\'' + ')">' + data[i-1][symptom] + '</td></tr>' ;
+                tb1.innerHTML += org ;
+            } // for
+            // window.alert ( tb1.innerHTML )
+            })
+	}
+</script>
+
+<!-- bootstrap css -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<!-- style css -->
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<!-- Tweaks for older IEs-->
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+</head>
+<body>
+	<!-- header section start -->
+	
+	
+	<div class="layout_padding banner_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<a href="index.html">
+						<img src="images/Awan.png"
+					width="300px"
+					style="position:absolute;top: -150px;left: -65px;"
+					>
+					</a>
+					<h1 class="banner_taital">EirveryWhere</h1>
+					<p class="browse_text"></p>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- banner section end -->
+	<!-- search box start -->
+	<div class="container">
+		<div class="search_box">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group">
+                        <input type="text" id = 'data' class="email_boton" placeholder="Search for">
+                    </div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input  type="button" value="Search" onclick="myFunction()" class="search_bt"/>
+                    </div>
+				
+				</div>
+
+				<div class="fashion_menu">
+                    	<ul>
+                    		<li class="active"><a onclick="clickFunction('頭痛')" href="#myTable">頭痛</a></li>
+							<li class="active"><a onclick="clickFunction('嘔吐')" href="#myTable">嘔吐</a></li>
+							<li class="active"><a onclick="clickFunction('拉肚子')" href="#myTable">拉肚子</a></li>
+                    		<li class="active"><a onclick="clickFunction('心律不整')" href="#myTable">心律不整</a></li>
+							<li class="active"><a onclick="clickFunction('眼睛乾澀')" href="#myTable">眼睛乾澀</a></li>
+                    		<li class="active"><a onclick="clickFunction('四肢無力')" href="#myTable">四肢無力</a></li>
+							<li class="active"><a onclick="clickFunction('發燒')" href="#myTable">發燒</a></li>
+							<li class="active"><a onclick="clickFunction('牙痛')" href="#myTable">牙痛</a></li>
+                    		<li class="active"><a onclick="clickFunction('經痛')" href="#myTable">經痛</a></li>
+                    	</ul>
+                    </div>
+			</div>
+		</div>
+
+		<div class="main  layout_padding promoted_sectipon">
+
+			<table id="myTable">
+
+			</table>	
+		</div>
+
+        <div id = 'mapstyle'>
+            <div id="myMap"></div>
+
+            <div id="search">
+
+                <ul id="results-panel"></ul>
+            </div>
+        </div>
+		
+		
+	</div>
+
+     
+      <script>
+         $(document).ready(function(){
+         $(".fancybox").fancybox({
+         openEffect: "none",
+         closeEffect: "none"
+         });
+         
+         $(".zoom").hover(function(){
+         
+         $(this).addClass('transition');
+         }, function(){
+         
+         $(this).removeClass('transition');
+         });
+         });
+         
+      </script> 
+
+   <div id="footer" class="copyright">
+        <p class="copyright_text">Copyright © 2022 eCloudvalley Awan</p>
+</div>
+	 
+    
+</body>
+
+</html>

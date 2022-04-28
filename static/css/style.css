@@ -1,0 +1,291 @@
+/*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=latin-ext');
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+/*****---------------------------------------- 1) font-family: 'Rajdhani', sans-serif;
+ 2) font-family: 'Poppins', sans-serif;
+ ----------------------------------------*****/
+
+
+/*--------------------------------------------------------------------- import Files ---------------------------------------------------------------------*/
+
+@import url(animate.min.css);
+@import url(normalize.css);
+@import url(meanmenu.css);
+@import url(owl.carousel.min.css);
+@import url(swiper.min.css);
+@import url(slick.css);
+@import url(jquery.fancybox.min.css);
+@import url(jquery-ui.css);
+@import url(nice-select.css);
+
+/*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
+
+* {
+     box-sizing: border-box !important;
+     transition: ease all 0.5s;
+}
+
+html {
+     scroll-behavior: smooth;
+}
+
+body {
+     color: #666666;
+     font-size: 14px;
+     font-family: 'Noto Serif', sans-serif;;
+     line-height: 1.80857;
+     font-weight: normal;
+     overflow-x: hidden;
+     height: 100%;
+}
+
+
+table{
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 20px;
+   }
+
+   .tabletop{
+     background-color: #388417;
+   }
+   
+   table tr{
+     border-bottom: solid 2px white;
+   }
+   
+   table tr:last-child{
+     border-bottom: none;
+   }
+   
+   table th{
+     position: relative;
+     width: 25%;
+     background-color: #69c934;
+     color: white;
+     text-align: center;
+     padding: 10px 0;
+   }
+   
+   table th:after{
+     display: block;
+     content: "";
+     width: 0px;
+     height: 0px;
+     position: absolute;
+     top:calc(50% - 10px);
+     right:-10px;
+     border-left: 10px solid #69c934;
+     border-top: 10px solid transparent;
+     border-bottom: 10px solid transparent;
+   }
+   
+   table td{
+     text-align: left;
+     width: 70%;
+     text-align: center;
+     background-color: #eee;
+     padding: 10px 0;
+   }
+   
+   .main {
+     margin: 20px;
+     item-align: center;
+     width: 1000px;
+   }
+
+a {
+     color: #1f1f1f;
+     text-decoration: none !important;
+     outline: none !important;
+     -webkit-transition: all .3s ease-in-out;
+     -moz-transition: all .3s ease-in-out;
+     -ms-transition: all .3s ease-in-out;
+     -o-transition: all .3s ease-in-out;
+     transition: all .3s ease-in-out;
+}
+
+
+
+
+*,
+*::after,
+*::before {
+     -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     box-sizing: border-box;
+}
+
+
+button:focus {
+     outline: none;
+}
+
+ul,
+li,
+ol {
+     margin: 0px;
+     padding: 0px;
+     list-style: none;
+}
+
+p {
+     margin: 20px;
+     font-weight: 600;
+     font-size: 15px;
+     line-height: 24px;
+     color: #110f0a;
+}
+
+
+.layout_padding {
+    padding-bottom: 80px;
+    padding-top: 80px;
+}
+
+.logo {width: 100%; float: left;}
+
+
+.banner_section{ 
+     width: 100%; 
+     float: left;
+     background-color: rgba(0, 0, 0, 0.7);
+     background-image: url(../images/health.jpg);
+     background-blend-mode: multiply;
+     height: auto;  
+     background-size: cover;
+     background-repeat: no-repeat;
+}
+
+.banner_taital{
+     width: 100%;
+     float: left;
+     color: #ffffff;
+     font-size: 44pt;
+     text-align: center;
+     font-family:serif;
+}
+
+.browse_text{
+     width: 100%;
+     float: left;
+     font-size: 14pt;
+     color: #cbcbcb;
+     text-align: center;
+     padding-bottom: 50px;
+     font-weight: 500;
+     margin-left: 0px;
+}
+
+
+.search_box{
+     width: 100%;
+     float: left;
+     background-color: #ffffff;
+     height: auto;
+     padding: 60px 20px;
+     top: -125px;
+     position: relative;
+     box-shadow: 0px 0px 8px 0px;
+}
+
+.email_boton{
+     width: 750px;
+     float: left;
+     color: #b2b1b1;
+     border: 1px solid #69c934;
+     padding: 10px 15px;
+     font-size: 14pt;
+}
+
+.search_bt{
+     width: 90%;
+     float: left;
+     color: #ffffff;
+     background-color: #69c934;
+     font-size: 14pt;
+     border: 0px;
+     height: 55px;
+     margin-left: 200%;
+}
+.fashion_menu{
+     width: 100%;
+     float: left;
+     padding: 0px 20px;
+
+}
+
+.fashion_menu ul{
+     margin: 0px;
+     padding: 0px;
+}
+.fashion_menu li a{ float: left; color: #707070; padding: 12px;}
+.fashion_menu li a:hover{  background-color: #000; color: #ffffff; }
+
+.fashion_menu li{
+     float: left;
+     padding-left: 20px;
+     font-size: 14pt;
+     color: #707070;
+     padding: 0px 18px;
+     margin-top: 50px;
+}
+
+
+.promoted_sectipon{
+     width: 100%;
+     float: left;
+     
+     height: auto;
+
+}
+
+
+
+.carousel-indicators .active {
+    background-color: #052501;
+}
+
+.carousel {
+    position: relative;
+    padding-bottom: 60px;
+}
+
+.copyright{
+     width: 100%;
+     float: left;
+     background-color: #388417;
+}
+
+.copyright_text{
+     width: 100%;
+     float: left;
+     font-size: 14pt;
+     color: #ffffff;
+     text-align: center;
+     font-weight: 100;
+}
+
+
+
+
+#main_slider .carousel-control-prev, #main_slider .carousel-control-next {
+    width: 62px;
+    height: 60px;
+    background: #4bc714;
+    opacity: 1;
+    font-size: 30px;
+    color: #fff;
+    border-radius: 35px;
+    top: 40% !important;
+}
+.copyright_text a{ color: #ffffff;}
+.copyright_text a:hover{ color: #000000;}
+
+
+
